@@ -1,0 +1,20 @@
+Chunking :
+    - Level 1 : chunk_size  = 500, chunk_overlap = 50 Done.
+    - Problem : it cuts a sentence, paragraph in half. The chunking lose meaning entirely
+
+
+    # Example of what naive chunking does to medical text:
+    Chunk 1: "...The recommended dosage of metformin for Type 2 diabetes is 500mg twice"
+    Chunk 2: "daily with meals. Patients with renal impairment should..."
+
+
+
+    Level 2 : Structure- Aware Chunking 
+     - You look at the document structure before splitting — headings, paragraphs, sections — and use those as natural boundaries.
+     - Split at: headings → paragraphs → sentences
+                Never cut mid-sentence or mid-paragraph 
+
+
+    Level 3 : Semantic Chunking
+     - The idea: instead of splitting at fixed sizes or structural markers, you split when the meaning changes 
+     — detected by comparing embedding similarity between consecutive sentences.
