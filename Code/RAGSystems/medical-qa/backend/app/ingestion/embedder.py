@@ -29,7 +29,7 @@ class embedder :
     def emebed_document(self, document : List[Document]) :
         """ Converts documents into a vector store  """
         Embeddings = self.embeddings()
-        vectorstore = FAISS.from_documents(document, Embeddings)
+        vectorstore = FAISS.from_documents(document, Embeddings) 
         return vectorstore
 
 
