@@ -18,3 +18,23 @@ Chunking :
     Level 3 : Semantic Chunking
      - The idea: instead of splitting at fixed sizes or structural markers, you split when the meaning changes 
      — detected by comparing embedding similarity between consecutive sentences.
+
+
+
+Re-Ranking and Top-K vector store retrieval are two different things
+
+
+    Top k retrieve : Top K outputs after using similarity search metrix (Cosine Similarity)
+
+    ReRanking :
+        Retrieve a larger set of candidates (EX : top 50 or 100) from the vector store
+        Rerank those candidates with different model (Ex : cross-encoder)
+        Cross-Encoder that scores each query-document pair
+
+
+    Conclusion :
+        - Vector store top-k : one stage retrieval : similarity search -> returns k results
+        - Reranking  = two stage : retrieve more (ex : 50) -> rerank with another model -> return top k
+
+        
+
