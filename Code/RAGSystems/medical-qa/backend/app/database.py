@@ -6,17 +6,16 @@
 
 """
 
-from pydantic import Json
 from sqlalchemy import (
-    column, create_engine, Column, String , Integer, Float, DateTime, Text, JSON, null
+    column, create_engine, Column, String , Integer, Float, DateTime, Text, JSON, null, text
 )
 
 from sqlalchemy.orm import Session, declarative_base, sessionmaker
 from sqlalchemy.dialects.postgresql import UUID
 from pgvector.sqlalchemy import Vector
 from datetime import datetime
-import vvid
-from config import settings
+import uuid
+from app.config import settings
 
 
 # Connection
@@ -33,7 +32,7 @@ class Document(Base) :
     """ Track Every pdf it ingests """
     __tablename__ = "documents"
 
-    id = Column(UUID(as_vvid=True), primary_key= True, default= vvid.vvid4)
+    id = Column(UUID(as_uuid=True), primary_key= True, default= uuid.uuid4)
     filename = Column(String, nullable= False)
     source = Column(String)
     total_pages = Column(Integer)
@@ -52,7 +51,7 @@ class Chunks(Base) :
     """ Every chunk with it's embedding vector""" 
     __tablename__ = "chunks"
     
-    id = Column(UUID(as_uuid=True), primary_key= True, default= vvid.vvid4)
+    id = Column(UUID(as_uuid=True), primary_key= True, default= uuid.uuid4)
     document_id = Column(UUID(as_uuid=True), nullable= False)
     text = Column(Text, nullable= False)
     page_number = Column(Integer)
@@ -69,10 +68,10 @@ class Conversation(Base) :
     """Every question + answer pair """
 
     __tablename__ = "conversations"
-    id  = Column(UUID(as_vvid=True), primary_key= True, default = vvid.vvid4)
+    id  = Column(UUID(as_uuid=True), primary_key= True, default = uuid.uuid4)
     question = Column(Text, nullable= False)
     answer = Column(Text)
-    retrieved_chunk_id = Column(Json)
+    retrieved_chunk_id = Column(JSON)
     confidence  = Column(Float)
     created_at = Column(DateTime, default= datetime.utcnow)
 
@@ -86,7 +85,7 @@ class EvalCase(Base) :
     __tablename__ = "eval_cases"
 
 
-    id  = Column(UUID(as_vvid=True), primary_key=True, default=vvid.vvid4)
+    id  = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     question = Column(Text, nullable= False)
     expected_answer = Column(Text, nullable= False)
     last_score = Column(Float)
@@ -112,7 +111,7 @@ def get_db() :
 def create_tables() :
     """ Run once to create all table + enable pgvector """
     with engine.connect() as conn :
-        conn.execute("Create Extension if not exists Vector")
+        conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
         conn.commit()
     Base.metadata.create_all(bind= engine)
     print("Tables created successfully")
