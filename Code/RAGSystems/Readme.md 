@@ -8,12 +8,10 @@ Chunking :
     Chunk 2: "daily with meals. Patients with renal impairment should..."
 
 
-
     Level 2 : Structure- Aware Chunking 
      - You look at the document structure before splitting — headings, paragraphs, sections — and use those as natural boundaries.
      - Split at: headings → paragraphs → sentences
                 Never cut mid-sentence or mid-paragraph 
-
 
     Level 3 : Semantic Chunking
      - The idea: instead of splitting at fixed sizes or structural markers, you split when the meaning changes 
@@ -36,5 +34,45 @@ Re-Ranking and Top-K vector store retrieval are two different things
         - Vector store top-k : one stage retrieval : similarity search -> returns k results
         - Reranking  = two stage : retrieve more (ex : 50) -> rerank with another model -> return top k
 
-        
+
+
+sqlalchemy : It's a SQL toolkit and ORM(Object Relational Mapper) for python
+- It provides a set of tools that allow developers to interact with various types of relational databases(SqlLite, PostgrSQL, MySQL)
+
+
+
+
+
+Errors I did
+1. FAISS.from_documents 
+2. 
+
+
+
+
+
+
+
+- Cross Entropy :
+Better, it's at predicting what comes next in the training data
+As a result, lower it's training cross Entropy
+If a model performs wells on the new data, then it's Cross Entropy will be low
+
+
+Generally, closer your data to a model training data, the better model perform on your data
+
+
+
+- Entropy
+How much information on average a token carries. The higher the Entropy the more information each token carries
+As a result more bit's are required to represent a token
+
+
+
+- A language Model is trained to minimize it's cross Entropy with respect to the training data
+- Model Cross Entropy will be exactly same as the Entropy of the training data
+- Kullback Leibler 
+
+
+
 
